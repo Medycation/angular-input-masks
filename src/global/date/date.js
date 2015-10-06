@@ -6,12 +6,11 @@ function DateMaskDirective($locale) {
 		'pt-br': 'DD/MM/YYYY',
 	};
 
-	var dateFormat = dateFormatMapByLocale[$locale.id] || 'YYYY-MM-DD';
-
 	return {
 		restrict: 'A',
 		require: 'ngModel',
 		link: function(scope, element, attrs, ctrl) {
+			var dateFormat = attrs.uiDateMask ||  dateFormatMapByLocale[$locale.id] || 'YYYY-MM-DD';
 			var dateMask = new StringMask(dateFormat.replace(/[YMD]/g,'0'));
 
 			function formatter(value) {
